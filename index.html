@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Hacking Day</title>
+
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="firasans/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="style/styles.css">
+    <link rel="stylesheet" type="text/css" href="style/conferencia.css">
+    <script src='js/slides.js'></script>
+  </head>
+
+  <style>
+    /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+
+
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular template-default'>
+
+      <!-- Your slides (<article>s) go here. Delete or comment out the
+           slides below. -->
+      <article class='biglogo'>
+      </article>
+
+      <article>
+        <h1>
+          WebAPIs
+        </h1>
+        <p>
+          <a target="_blank" href="https://github.com/firefoxosedu/basic_apis">https://github.com/firefoxosedu/basic_apis</a>
+           <br>
+          <a target="_blank" href="https://github.com/firefoxosedu/privileged_apis">https://github.com/firefoxosedu/privileged_apis</a>
+        </p>
+      </article>
+
+      <article>
+        <h1>
+          Partnership
+        </h1>
+        <p>
+          Telefonica <strong id="red-heart">♥</strong> Mozilla Firefox
+        </p>
+      </article>
+
+      <article>
+        <section id="borja" class="profile">
+          <strong>Borja Salguero (@borjasalguero)</strong><br>
+          FirefoxOS Frontend Engineer. Web technologies passionate and Vespa enthusiast.
+        </section>
+        <section id="francisco" class="profile">
+          <strong>Francisco Jordano (@mepartoconmigo)</strong><br>
+          Metal head \m/. FirefoxOS addict. Software handcrafter.
+        </section>
+      </article>
+
+      <article>
+        <h1>
+          What is an API?
+        </h1>
+        <p>
+          API specifies *how* some software components should interact with each other.
+        </p>
+      </article>
+
+      <article>
+        <h1>
+          WebAPIs
+        </h1>
+        <p>
+          Extend functionality of the web browser
+        </p>
+      </article>
+
+      <article>
+        <h1>
+          WebAPIs in Firefox
+        </h1>
+        <p>
+          <a target="_blank" href="https://wiki.mozilla.org/WebAPI">https://wiki.mozilla.org/WebAPI</a>
+        </p>
+      </article>
+
+      <article>
+        manifest.webapp
+        <pre>
+{
+  "name": "FirefoxOSApp",
+  ...
+  "type": "certified",
+  ...
+  "permissions": {
+    "mobileconnection":{},
+    "contacts":{ "access": "readonly" },
+    "settings":{ "access": "readwrite" },
+    "desktop-notification":{}
+  }
+  ...
+}
+        </pre>
+      </article>
+
+      <article>
+        API: Battery
+        <pre>
+// First, get the object
+var battery = navigator.mozBattery;
+
+// Check the current level
+var batteryLevel = battery.level * 100 + "%";
+
+// Listen to events
+battery.addEventLister("levelchange", setStatus, false);
+battery.addEventLister("chargingchange", setStatus, false);
+        </pre>
+      </article>
+
+      <article>
+        API: Contacts
+        <pre>
+// get the ContactManager object
+var contactsAPI = navigator.mozContacts;
+
+// create a new contact
+var contact = new mozContact();
+contact.givenName  = ["John"];
+contact.familyName = ["Doe"];
+contact.nickName   = ["No kidding"];
+
+// save new contact into the database
+var request = contactAPI.save(contact);
+saving.onsuccess = function() {
+    console.log('New contact created');
+};
+saving.onerror = function(err) {
+  console.error(err);
+};
+        </pre>
+      </article>
+
+      <article>
+        API: Messages
+        <pre>
+var mozSMS = navigator.mozMobileMessage;
+var requests = mozSMS.send(['+34712123123'], 'Hola Milán');
+
+requests.forEach(function(request, idx) {
+  request.onsuccess = function() {
+    alert('SMS Sent');
+  };
+  request.onerror = function() {
+    alert('Error while sending the SMS');
+  };
+});
+        </pre>
+      </article>
+
+      <article>
+        <h1>
+          What's next?
+        </h1>
+        <p>
+          How to communicate between apps. Activities!
+        </p>
+      </article>
+
+     
+      <article class='biglogo2'>
+      </article>
+
+    </section>
+
+  </body>
+</html>
